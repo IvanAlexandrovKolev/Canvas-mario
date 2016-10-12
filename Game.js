@@ -6,6 +6,7 @@ function init() {
     let marioImg = document.getElementById('mario');
     let chickImg = document.getElementById('chick');
     let princessImg = document.getElementById('princess');
+    let portImg = document.getElementById('port');
     let ctx = document.getElementById('canvas').getContext('2d');
     ctx.font = '24px arial';
 
@@ -31,6 +32,10 @@ function init() {
 
     function draw() {
         ctx.clearRect(0,0,800,600);
+        ctx.drawImage(portImg,30,30);
+        ctx.drawImage(portImg,30,540);
+        ctx.drawImage(portImg,740,30);
+        ctx.drawImage(portImg,740,540);
         drawObj(mario);
         drawObj(chick);
         ctx.drawImage(princessImg,100,200);
@@ -52,6 +57,30 @@ function init() {
         if(keysDown["ArrowDown"]){
             mario.y += moveSpeed;
         }
+
+
+        //port
+        if(((mario.x + 30) <70 && (mario.x + 30)>30) && ((mario.y + 37) <70 && (mario.y + 37)>30)){
+            let port = Math.round(Math.random()*4);
+            if(port != 1)
+                teleport(port);
+        }
+        if(((mario.x + 30) <770 && (mario.x + 30)>730) && ((mario.y + 37) <70 && (mario.y + 37)>30)){
+            let port = Math.round(Math.random()*4);
+            if(port !=2)
+                teleport(port);
+        }
+        if(((mario.x + 30) <770 && (mario.x + 30)>730) && ((mario.y + 37) <570 && (mario.y + 37)>530)){
+            let port = Math.round(Math.random()*4);
+            if(port !=3)
+                teleport(port);
+        }
+        if(((mario.x + 30) <70 && (mario.x + 30)>30) && ((mario.y + 37) <570 && (mario.y + 37)>530)){
+            let port = Math.round(Math.random()*4);
+            if(port !=4)
+                teleport(port);
+        }
+
         moveChick();
         let x = (mario.x + 30) - (chick.x+22);
         let y = (mario.y + 37) - (chick.y+36);
@@ -59,6 +88,25 @@ function init() {
         if (distance<50){
             score++;
             reset();
+        }
+
+    }
+    function teleport(port) {
+        if(port ==1){
+            mario.x = 80;
+            mario.y = 70;
+        }
+        if(port == 2){
+            mario.x = 680;
+            mario.y = 70;
+        }
+        else if(port==3){
+            mario.x = 680;
+            mario.y = 450;
+        }
+        else if(port==4){
+            mario.x = 80;
+            mario.y = 450;
         }
     }
     function moveChick() {
