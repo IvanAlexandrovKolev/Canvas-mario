@@ -4,7 +4,7 @@ function init() {
     let chickSpeedX = 2;
     let chickSpeedY = 2;
     let score = 0;
-    let level = 7;
+    let level = 1;
     let marioImg = document.getElementById('mario');
     let chickImg = document.getElementById('chick');
     let policeImg = document.getElementById('police');
