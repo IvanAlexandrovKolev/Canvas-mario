@@ -245,7 +245,7 @@ function init() {
             moveSpeed -= 0.2;
         }
         if (chicks.length == 0) {
-            for (let i = 0; i < level; i++) {
+            for (let i = 0; i < (level)/2; i++) {
                 addChick();
             }
         }
