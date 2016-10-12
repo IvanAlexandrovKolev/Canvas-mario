@@ -31,9 +31,8 @@ function init() {
     }
 
     function mouseHandler(event) {
-        //24 86 106 116
-        if(event.clientX>24 && event.clientX<106) {
-            if (event.clientY > 86 && event.clientY < 116) {
+        if(event.clientX>365 && event.clientX<446) {
+            if (event.clientY > 555 && event.clientY < 588) {
                 init();
             }
         }
@@ -82,7 +81,8 @@ function init() {
         ctx.drawImage(policeImg, 100, 200);
         ctx.fillText(`LEVEL: ${level}`, 300, 25);
         ctx.fillText(`CHICKS CAUGHT: ${score}`, 300, 50);
-        drawButton('Reset', 10, 70);
+
+        drawButton('Reset', 350, 540);
     }
 
     function update() {
