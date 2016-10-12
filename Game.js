@@ -6,7 +6,7 @@ function init() {
     let level = 1 ;
     let marioImg = document.getElementById('mario');
     let chickImg = document.getElementById('chick');
-    let princessImg = document.getElementById('princess');
+    let policeImg = document.getElementById('police');
     let portImg = document.getElementById('port');
     let ctx = document.getElementById('canvas').getContext('2d');
     ctx.font = '18px arial';
@@ -14,6 +14,7 @@ function init() {
     let mario = {img:marioImg, x:400 , y:300,direction:true};
     let chicks = [];
     let chick = {img:chickImg, x:0 , y:0,dirX:true,dirY:true};
+
     let keysDown = {};
     window.addEventListener('keydown',kbdHandler);
     window.addEventListener('keyup',kbdHandler);
@@ -24,7 +25,9 @@ function init() {
             keysDown[event.code] = true;
         else if (event.type=='keyup')
             delete keysDown[event.code];
-
+        // if(event.type='spacedown'){
+        //     moveSpeed=10;
+        // }
     }
     function addChick() {
         let x =Math.round((Math.random()*700));
@@ -46,7 +49,6 @@ function init() {
             dirx = true;
             diry = false;
         }
-//
         chicks.push({img:chickImg, x:x , y:y,dirX:dirx,dirY:diry});
     }
     function drawObj(obj) {
@@ -65,6 +67,8 @@ function init() {
             drawObj(chicks[i]);
         }
         ctx.drawImage(princessImg,100,200);
+        drawObj(chick);
+        ctx.drawImage(policeImg,100,200);
 
         ctx.fillText(`LEVEL:${level}`,300,25);
         ctx.fillText(`CHICKS CAUGHT:${score}`,300,50);
