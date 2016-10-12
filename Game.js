@@ -1,10 +1,10 @@
 
 function init() {
-    let moveSpeed = 2;
+    let moveSpeed = 3.4;
     let chickSpeedX = 2;
     let chickSpeedY = 2;
     let score = 0;
-    let level = 1;
+    let level = 7;
     let marioImg = document.getElementById('mario');
     let chickImg = document.getElementById('chick');
     let policeImg = document.getElementById('police');
@@ -159,28 +159,28 @@ function init() {
             chick.x += chickSpeedX;
             if (chick.x >= 760) {
                 chick.dirX = false;
-                chick.x = 761;
+                chick.x = 750;
             }
         }
         else {
             chick.x -= chickSpeedX;
             if (chick.x <= 1) {
                 chick.dirX = true;
-                chick.x = 2;
+                chick.x = 10;
             }
         }
         if (chick.dirY) {
             chick.y += chickSpeedY;
             if (chick.y >= 550) {
                 chick.dirY = false;
-                chick.y = 551;
+                chick.y = 540;
             }
         }
         else {
             chick.y -= chickSpeedY;
             if (chick.y <= 1) {
                 chick.dirY = true;
-                chick.y = 2;
+                chick.y = 10;
             }
         }
 
@@ -242,7 +242,7 @@ function init() {
         if (score == 4) {
             score = 0;
             level++;
-            //moveSpeed -= 0.2;
+            moveSpeed -= 0.2;
         }
         if (chicks.length == 0) {
             for (let i = 0; i < level; i++) {
