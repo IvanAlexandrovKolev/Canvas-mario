@@ -65,9 +65,8 @@ function init() {
             drawObj(chicks[i]);
         }
         ctx.drawImage(policeImg,100,200);
-
-        ctx.fillText(`LEVEL:${level}`,300,25);
-        ctx.fillText(`CHICKS CAUGHT:${score}`,300,50);
+        ctx.fillText(`LEVEL: ${level}`,300,25);
+        ctx.fillText(`CHICKS CAUGHT: ${score}`,300,50);
     }
     function update() {
         if(keysDown["ArrowLeft"]){
