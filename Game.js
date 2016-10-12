@@ -1,3 +1,4 @@
+
 function init() {
     let moveSpeed = 2;
     let chickSpeedX = 2;
@@ -18,16 +19,13 @@ function init() {
     let keysDown = {};
     window.addEventListener('keydown',kbdHandler);
     window.addEventListener('keyup',kbdHandler);
-    
+
 
     function kbdHandler() {
         if(event.type == 'keydown')
             keysDown[event.code] = true;
         else if (event.type=='keyup')
             delete keysDown[event.code];
-        // if(event.type='spacedown'){
-        //     moveSpeed=10;
-        // }
     }
     function addChick() {
         let x =Math.round((Math.random()*700));
@@ -38,7 +36,7 @@ function init() {
             var diry = true;
         }
         if(randomness == 2) {
-            dirx = false
+            dirx = false;
             diry = true;
         }
         if(randomness == 3) {
@@ -66,8 +64,6 @@ function init() {
         for(let i =0;i< chicks.length ; i++) {
             drawObj(chicks[i]);
         }
-        ctx.drawImage(princessImg,100,200);
-        drawObj(chick);
         ctx.drawImage(policeImg,100,200);
 
         ctx.fillText(`LEVEL:${level}`,300,25);
