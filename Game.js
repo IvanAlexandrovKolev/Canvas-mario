@@ -5,13 +5,14 @@ function init() {
     let score = 0;
     let marioImg = document.getElementById('mario');
     let chickImg = document.getElementById('chick');
-    let princessImg = document.getElementById('princess');
+    let policeImg = document.getElementById('police');
     let portImg = document.getElementById('port');
     let ctx = document.getElementById('canvas').getContext('2d');
     ctx.font = '24px arial';
 
     let mario = {img:marioImg, x:400 , y:300,direction:true};
     let chick = {img:chickImg, x:0 , y:0,dirX:true,dirY:true};
+
     let keysDown = {};
     window.addEventListener('keydown',kbdHandler);
     window.addEventListener('keyup',kbdHandler);
@@ -22,7 +23,9 @@ function init() {
             keysDown[event.code] = true;
         else if (event.type=='keyup')
             delete keysDown[event.code];
-
+        // if(event.type='spacedown'){
+        //     moveSpeed=10;
+        // }
     }
     function drawObj(obj) {
         ctx.save();
@@ -38,7 +41,7 @@ function init() {
         ctx.drawImage(portImg,740,540);
         drawObj(mario);
         drawObj(chick);
-        ctx.drawImage(princessImg,100,200);
+        ctx.drawImage(policeImg,100,200);
 
         ctx.fillText(`Chicks caught:${score}`,10,30);
     }
