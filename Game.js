@@ -141,28 +141,28 @@ function init() {
             chick.x += chickSpeedX;
             if(chick.x >= 760){
                 chick.dirX = false;
-                chick.x = 760;
+                chick.x = 761;
             }
         }
         else{
             chick.x -= chickSpeedX;
             if(chick.x <= 1){
                 chick.dirX = true;
-                chick.x = 1;
+                chick.x = 2;
             }
         }
         if(chick.dirY){
             chick.y += chickSpeedY;
             if(chick.y >= 550){
                 chick.dirY = false;
-                chick.y = 550;
+                chick.y = 551;
             }
         }
         else{
             chick.y -= chickSpeedY;
             if(chick.y <= 1){
                 chick.dirY = true;
-                chick.y = 1;
+                chick.y = 2;
             }
         }
 
