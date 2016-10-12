@@ -11,9 +11,10 @@ function init() {
     let policeImg = document.getElementById('police');
     let portImg = document.getElementById('port');
     let canvas = document.getElementById('canvas');
- 
+
     let ctx = canvas.getContext('2d');
     ctx.font = '18px arial';
+    let chick = {img: chickImg, x: 0, y: 0, dirX: true, dirY: true};
     let mario = {img: marioImg, x: 400, y: 300, direction: true};
     let chicks = [];
     let policeman = {img: policeImg, x: 0, y: 0, dirX: true, dirY: true};
@@ -82,7 +83,7 @@ function init() {
         ctx.fillText(`LEVEL: ${level}`, 300, 25);
         ctx.fillText(`CHICKS CAUGHT: ${score}`, 300, 50);
  
-        drawButton('Reset', 350, 540);
+
     }
  
     function update() {
@@ -124,6 +125,13 @@ function init() {
         }
  
         movePoliceman(policeman);
+        let x = (mario.x + 30) - (policeman.x + 22);
+        let y = (mario.y + 37) - (policeman.y + 36);
+        let distance = Math.sqrt(x * x + y * y);
+        if (distance < 50) {
+            busted();
+        }
+
         for (let i = 0; i < chicks.length; i++) {
             moveChick(chicks[i]);
             let x = (mario.x + 30) - (chicks[i].x + 22);
@@ -131,6 +139,7 @@ function init() {
             let distance = Math.sqrt(x * x + y * y);
             if (distance < 50) {
                 reset(i);
+
             }
         }
  
@@ -259,7 +268,7 @@ function init() {
         ctx.font = '24 px monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
- 
+
         let width = ctx.measureText(text).width;
         ctx.beginPath();
         ctx.moveTo(x + 20, y + 20);
@@ -268,7 +277,15 @@ function init() {
         ctx.fillText(text, x + 20 + width / 2, y + 20);
         ctx.restore();
     }
- 
+
+    function busted() {
+        ctx.fillText('You got BUSTED!', 500,500);
+        drawButton('Try Again!', 350, 540);
+
+        ctx.clearRect();
+        ctx.restore();
+    }
+
     function reset(number) {
         chicks.splice(number, 1);
         score++;
@@ -278,7 +295,8 @@ function init() {
             moveSpeed -= 0.2;
         }
         if (chicks.length == 0) {
-            for (let i = 0; i < level; i++) {
+            addChick();
+            for (let i = 0; i < (level)/2; i++) {
                 addChick();
             }
         }
