@@ -1,6 +1,7 @@
 function init() {
-    let moveSpeed = 10;
-    let chickSpeed = 2;
+    let moveSpeed = 4;
+    let chickSpeedX = 2;
+    let chickSpeedY = 2;
     let dirX = true;
     let dirY = true;
     let marioImg = document.getElementById('mario');
@@ -9,7 +10,7 @@ function init() {
     let ctx = document.getElementById('canvas').getContext('2d');
     ctx.font = '24px arial';
 
-    let mario = {img:marioImg, x:400 , y:300};
+    let mario = {img:marioImg, x:400 , y:300,direction:true};
     let chick = {img:chickImg, x:0 , y:0};
     let keysDown = {};
     window.addEventListener('keydown',kbdHandler);
@@ -23,44 +24,26 @@ function init() {
             delete keysDown[event.code];
 
     }
-    function moveChick() {
-        if(dirX){
-            chick.x += chickSpeed;
-            if(chick.x >= 770){
-                dirX = false;
-            }
-        }
-        else{
-            chick.x -= chickSpeed;
-            if(chick.x <= 30){
-                dirX = true;
-            }
-        }
-        if(dirY){
-            chick.y += chickSpeed;
-            if(chick.y >= 570){
-                dirY = false;
-            }
-        }
-        else{
-            chick.y -= chickSpeed;
-            if(chick.y <= 30){
-                dirY = true;
-            }
-        }
+    function drawObj(obj) {
+        ctx.save();
+        ctx.drawImage(obj.img,obj.x,obj.y);
+        ctx.restore();
     }
+
     function draw() {
-        ctx.clearRect(0,0,800,600);
-        ctx.drawImage(marioImg,mario.x,mario.y);
-        ctx.drawImage(chickImg,chick.x,chick.y);
+        ctx.fillRect(0,0,800,600);
+        drawObj(mario);
+        drawObj(chick);
         ctx.drawImage(princessImg,100,200);
     }
     function update() {
         if(keysDown["ArrowLeft"]){
             mario.x -= moveSpeed;
+            mario.direction = false;
         }
         if(keysDown["ArrowRight"]){
             mario.x += moveSpeed;
+            mario.direction = true;
         }
         if(keysDown["ArrowUp"]){
             mario.y -= moveSpeed;
@@ -69,14 +52,59 @@ function init() {
             mario.y += moveSpeed;
         }
         moveChick();
-        if (
-            mario.x <= (chick.x + 32)
-            && chick.x <= (mario.x + 32)
-            && mario.y <= (chick.y + 32)
-            && chick.y <= (mario.y + 32)
-        ) {
+        let x = (mario.x + 30) - (chick.x+22);
+        let y = (mario.y + 37) - (chick.y+36);
+        let distance = Math.sqrt(x*x + y*y);
+        if (distance<50){
             reset();
         }
+    }
+    function moveChick() {
+        if(dirX){
+            chick.x += chickSpeedX;
+            if(chick.x >= 770){
+                dirX = false;
+            }
+        }
+        else{
+            chick.x -= chickSpeedX;
+            if(chick.x <= 30){
+                dirX = true;
+            }
+        }
+        if(dirY){
+            chick.y += chickSpeedY;
+            if(chick.y >= 570){
+                dirY = false;
+            }
+        }
+        else{
+            chick.y -= chickSpeedY;
+            if(chick.y <= 30){
+                dirY = true;
+            }
+        }
+
+        let x = (mario.x + 30) - (chick.x+22);
+        let y = (mario.y + 37) - (chick.y+36);
+        let distance = Math.sqrt(x*x + y*y);
+        //trying to make the ckick escape
+        if(chick.x < mario.x && distance <200){
+            chickSpeedX-= distance*0.0001;
+        }
+        else chickSpeedX += 0.025;
+        if(chick.x > mario.x && distance <200){
+            chickSpeedX += distance*0.0001;
+        }
+        else chickSpeedX -= 0.025;
+        if(chick.y < mario.x && distance <200){
+            chickSpeedY -= distance*0.0001;
+        }
+        else chickSpeedY += 0.025;
+        if(chick.y > mario.x && distance <200){
+            chickSpeedY += distance*0.0001;//
+        }
+        else chickSpeedY -= 0.025;
     }
     function reset() {
         chick.x = Math.round((Math.random()*700));
